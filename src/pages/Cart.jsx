@@ -1,9 +1,12 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import Fillter from "../components/Fillter";
+import { useDispatch } from "react-redux";
+import { addToCart } from "../redux/productSlice"; // to‘g‘ri yo‘l bilan
 
 const Cart = () => {
   const [data, setData] = useState([]);
+  const dispatch = useDispatch();
 
   useEffect(() => {
     axios
@@ -18,7 +21,7 @@ const Cart = () => {
         <Fillter />
       </div>
 
-      <div className="w-3/3">
+      <div className="w-3/4">
         <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-3 gap-8">
           {data.map((item) => (
             <div
@@ -38,6 +41,13 @@ const Cart = () => {
               <p className="text-green-600 font-bold text-[16px]">
                 ${item.price}
               </p>
+
+              <button
+                onClick={() => dispatch(addToCart(item))}
+                className="mt-2 px-4 py-1 bg-green-600 text-white rounded hover:bg-green-700"
+              >
+                Savatchaga qo'shish
+              </button>
             </div>
           ))}
         </div>
